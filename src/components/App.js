@@ -10,7 +10,7 @@ class App extends Component {
     hogs: hogs,
   };
 
-  handleChange = (event) => {
+  handleFilter = (event) => {
     event.persist();
     // console.log(event.target.value)
     let condition = false;
@@ -28,15 +28,38 @@ class App extends Component {
     }, () => console.log(this.state.hogs))
   };
 
+  handleSort = (event) => {
+    event.persist()
+    console.log(event.target.value)
+    if(event.target.value === 'name'){
+      const sortedHogs = this.state.hogs.sort((a, b) => (a.name > b.name) ? 1 : -1)
+      console.log(sortedHogs)
+      this.setState({
+        hogs: sortedHogs
+      })
+    } else if (event.target.value === 'weight'){      
+      const sortedHogs = this.state.hogs.sort((a, b) => a.weight - b.weight )
+      this.setState({
+        hogs: sortedHogs
+      })
+    }
+  };
+
   render() {
     return (      
       <div className="App">
         <Nav />
 
-        <select onChange={this.handleChange}>
+        <select onChange={this.handleFilter}>
           <option value='all'>All</option>
           <option value='greased'>Greased</option>
           <option value='ungreased'>Ungreased</option>
+        </select>
+        <br></br>
+        <select onChange={this.handleSort}>  
+          <option value='sort by'>Sort By:</option>      
+          <option value='name'>Name</option>
+          <option value='weight'>Weight</option>
         </select>
 
         <HelloWorld />
