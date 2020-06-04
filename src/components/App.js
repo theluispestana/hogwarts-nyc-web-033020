@@ -25,7 +25,7 @@ class App extends Component {
     console.log(filteredHogs)
     this.setState({
       hogs: filteredHogs
-    })
+    }, () => console.log(this.state.hogs))
   };
 
   render() {
@@ -40,7 +40,7 @@ class App extends Component {
         </select>
 
         <HelloWorld />
-        <PigContainer hogs={hogs} />
+        <PigContainer hogs={this.state.hogs} />
       </div>
 
     );
